@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Progress</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card h4 {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .stat-card p {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .achievement-card .icon {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+        }
+
+        .achievement-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .achievement-card p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .insight-item {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            color: #2e7d32;
+            border-left: 4px solid #4caf50;
+            font-size: 1.1em;
+        }
+
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        canvas {
+            max-height: 400px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-size: 1.1em;
+        }
+
+        .category-label {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .linear-label {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .quadratic-label {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Your Progress Dashboard</h1>
+            <p style="color: #666; font-size: 1.1em;" id="studentName"></p>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="section">
+            <h2>📈 Statistics Overview</h2>
+            <div class="stats" id="statsContainer"></div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="section" id="achievementsSection">
+            <h2>🏆 Achievements</h2>
+            <div id="achievementsContainer" class="achievements-grid"></div>
+        </div>
+
+        <!-- Learning Insights Section -->
+        <div class="section" id="insightsSection">
+            <h2>💡 Learning Insights</h2>
+            <div id="insightsContainer"></div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="section" id="chartsSection">
+            <h2>📊 Performance Charts</h2>
+
+            <div id="linearChartsContainer" style="display: none;">
+                <span class="category-label linear-label">Linear Equations</span>
+                <div class="chart-container">
+                    <h3 style="color: #666; margin-bottom: 15px;">Attempts per Equation</h3>
+                    <canvas id="linearAttemptsChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 style="color: #666; margin-bottom: 15px;">Time per Equation (seconds)</h3>
+                    <canvas id="linearTimeChart"></canvas>
+                </div>
+            </div>
+
+            <div id="quadraticChartsContainer" style="display: none; margin-top: 30px;">
+                <span class="category-label quadratic-label">Quadratic Equations</span>
+                <div class="chart-container">
+                    <h3 style="color: #666; margin-bottom: 15px;">Attempts per Equation</h3>
+                    <canvas id="quadraticAttemptsChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 style="color: #666; margin-bottom: 15px;">Time per Equation (seconds)</h3>
+                    <canvas id="quadraticTimeChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button onclick="window.location.href='/home'">← Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+        let linearAttemptsChart = null;
+        let linearTimeChart = null;
+        let quadraticAttemptsChart = null;
+        let quadraticTimeChart = null;
+
+        async function loadProgress() {
+            const response = await fetch('/progress/data');
+            const data = await response.json();
+
+            // Update student name
+            document.getElementById('studentName').textContent = `Welcome back, ${data.student_name}!`;
+
+            // Update statistics
+            const statsContainer = document.getElementById('statsContainer');
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <h4>Total Completed</h4>
+                    <p>${data.stats.completed}/${data.stats.total}</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Linear Completed</h4>
+                    <p>${data.stats.linear_completed}/${data.stats.linear_total}</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Quadratic Completed</h4>
+                    <p>${data.stats.quadratic_completed}/${data.stats.quadratic_total}</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Attempts</h4>
+                    <p>${data.stats.total_attempts}</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Avg Attempts</h4>
+                    <p>${data.stats.avg_attempts}</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Time</h4>
+                    <p>${data.stats.total_time}s</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Avg Time</h4>
+                    <p>${data.stats.avg_time}s</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Completion Rate</h4>
+                    <p>${data.stats.accuracy}%</p>
+                </div>
+            `;
+
+            // Update achievements
+            const achievementsContainer = document.getElementById('achievementsContainer');
+            if (data.achievements.length > 0) {
+                achievementsContainer.innerHTML = data.achievements.map(ach => `
+                    <div class="achievement-card">
+                        <div class="icon">${ach.icon}</div>
+                        <h4>${ach.name}</h4>
+                        <p>${ach.description}</p>
+                    </div>
+                `).join('');
+            } else {
+                achievementsContainer.innerHTML = '<div class="empty-state">Complete equations to unlock achievements! 🎯</div>';
+            }
+
+            // Update insights
+            const insightsContainer = document.getElementById('insightsContainer');
+            if (data.insights.length > 0) {
+                insightsContainer.innerHTML = data.insights.map(insight => `
+                    <div class="insight-item">${insight}</div>
+                `).join('');
+            } else {
+                insightsContainer.innerHTML = '<div class="empty-state">Complete more equations to see personalized insights! 💡</div>';
+            }
+
+            // Draw linear charts
+            if (data.charts.linear.names.length > 0) {
+                document.getElementById('linearChartsContainer').style.display = 'block';
+
+                const linearAttemptsCtx = document.getElementById('linearAttemptsChart').getContext('2d');
+                if (linearAttemptsChart) linearAttemptsChart.destroy();
+                linearAttemptsChart = new Chart(linearAttemptsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.charts.linear.names,
+                        datasets: [{
+                            label: 'Attempts',
+                            data: data.charts.linear.attempts,
+                            backgroundColor: 'rgba(79, 172, 254, 0.7)',
+                            borderColor: '#4facfe',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Number of Attempts' }
+                            }
+                        }
+                    }
+                });
+
+                const linearTimeCtx = document.getElementById('linearTimeChart').getContext('2d');
+                if (linearTimeChart) linearTimeChart.destroy();
+                linearTimeChart = new Chart(linearTimeCtx, {
+                    type: 'line',
+                    data: {
+                        labels: data.charts.linear.names,
+                        datasets: [{
+                            label: 'Time (seconds)',
+                            data: data.charts.linear.times,
+                            backgroundColor: 'rgba(79, 172, 254, 0.2)',
+                            borderColor: '#4facfe',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Time (seconds)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Draw quadratic charts
+            if (data.charts.quadratic.names.length > 0) {
+                document.getElementById('quadraticChartsContainer').style.display = 'block';
+
+                const quadraticAttemptsCtx = document.getElementById('quadraticAttemptsChart').getContext('2d');
+                if (quadraticAttemptsChart) quadraticAttemptsChart.destroy();
+                quadraticAttemptsChart = new Chart(quadraticAttemptsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.charts.quadratic.names,
+                        datasets: [{
+                            label: 'Attempts',
+                            data: data.charts.quadratic.attempts,
+                            backgroundColor: 'rgba(240, 147, 251, 0.7)',
+                            borderColor: '#f093fb',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Number of Attempts' }
+                            }
+                        }
+                    }
+                });
+
+                const quadraticTimeCtx = document.getElementById('quadraticTimeChart').getContext('2d');
+                if (quadraticTimeChart) quadraticTimeChart.destroy();
+                quadraticTimeChart = new Chart(quadraticTimeCtx, {
+                    type: 'line',
+                    data: {
+                        labels: data.charts.quadratic.names,
+                        datasets: [{
+                            label: 'Time (seconds)',
+                            data: data.charts.quadratic.times,
+                            backgroundColor: 'rgba(240, 147, 251, 0.2)',
+                            borderColor: '#f093fb',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Time (seconds)' }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        loadProgress();
+    </script>
+</body>
+
+</html>

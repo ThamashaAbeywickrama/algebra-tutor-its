@@ -1,0 +1,874 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/algebra_tutor#"
+     xml:base="http://www.semanticweb.org/algebra_tutor"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/algebra_tutor"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#appropriateFor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#appropriateFor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#PerformanceLevel"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasCoefficient -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasCoefficient">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Coefficient"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasConstant -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasConstant">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Constant"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHint -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHint">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#SolutionStep"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintSolution -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintSolution">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintStep1 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintStep1">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintStep2 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintStep2">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintStep3 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintStep3">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintStep4 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintStep4">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintStep5 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintStep5">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasOperation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasOperation">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Operation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasPerformanceLevel -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasPerformanceLevel">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#StudentProfile"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#PerformanceLevel"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasSolution -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasSolution">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasSolutionStep -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasSolutionStep">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#SolutionStep"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasVariable -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasVariable">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/algebra_tutor#Variable"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasACProduct -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasACProduct">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasACoefficient -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasACoefficient">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#QuadraticEquation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasBCoefficient -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasBCoefficient">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasCCoefficient -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasCCoefficient">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasCoefficient -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasCoefficient">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasConstant -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasConstant">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasDegree -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasDegree">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasDiscriminant -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasDiscriminant">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasExpression -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasExpression">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintHigh -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintHigh">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintLow -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintLow">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintModerate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintModerate">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasHintText -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasHintText">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasSolution -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasSolution">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasSolution1 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasSolution1">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasSolution2 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasSolution2">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasStep4Expression -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasStep4Expression">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#QuadraticEquation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasStep5Expression -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasStep5Expression">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#QuadraticEquation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#hasStep6Expression -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/algebra_tutor#hasStep6Expression">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/algebra_tutor#QuadraticEquation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Coefficient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#Coefficient"/>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Constant -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#Constant"/>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#Equation"/>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Hint -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#Hint"/>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#LinearEquation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#LinearEquation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Operation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#Operation"/>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#PerformanceLevel -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#PerformanceLevel"/>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#QuadraticEquation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#QuadraticEquation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/algebra_tutor#Equation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#SolutionStep -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#SolutionStep"/>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#StudentProfile -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#StudentProfile"/>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Variable -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/algebra_tutor#Variable"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#LinearEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#HintSolution"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep1"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep2"/>
+        <hasCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasCoefficient>
+        <hasConstant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</hasConstant>
+        <hasDegree rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasDegree>
+        <hasExpression>2x + 3 = 7</hasExpression>
+        <hasSolution rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</hasSolution>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation10 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation10">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#QuadraticEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step6_Generic"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step1_Generic"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step2_Generic"/>
+        <hasHintStep3 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step3_Generic"/>
+        <hasHintStep4 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step4_Generic"/>
+        <hasHintStep5 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step5_Generic"/>
+        <hasACProduct rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-10</hasACProduct>
+        <hasACoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasACoefficient>
+        <hasBCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</hasBCoefficient>
+        <hasCCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-10</hasCCoefficient>
+        <hasDiscriminant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">49</hasDiscriminant>
+        <hasExpression>x² + 3x - 10 = 0</hasExpression>
+        <hasSolution1 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-5</hasSolution1>
+        <hasSolution2 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasSolution2>
+        <hasStep4Expression>x² + 5x - 2x - 10 = 0</hasStep4Expression>
+        <hasStep5Expression>x(x + 5) - 2(x + 5) = 0</hasStep5Expression>
+        <hasStep6Expression>(x + 5)(x - 2) = 0</hasStep6Expression>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#LinearEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#HintSolution"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep1"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep2"/>
+        <hasCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasCoefficient>
+        <hasConstant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</hasConstant>
+        <hasDegree rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasDegree>
+        <hasExpression>2x + 4 = 10</hasExpression>
+        <hasSolution rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</hasSolution>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation3">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#LinearEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#HintSolution"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep1"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep2"/>
+        <hasCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</hasCoefficient>
+        <hasConstant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-6</hasConstant>
+        <hasDegree rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasDegree>
+        <hasExpression>3x - 6 = 0</hasExpression>
+        <hasSolution rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasSolution>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation4">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#LinearEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#HintSolution"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep1"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep2"/>
+        <hasCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasCoefficient>
+        <hasConstant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-5</hasConstant>
+        <hasDegree rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasDegree>
+        <hasExpression>x - 5 = 8</hasExpression>
+        <hasSolution rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13</hasSolution>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation5">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#LinearEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#HintSolution"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep1"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#HintStep2"/>
+        <hasCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</hasCoefficient>
+        <hasConstant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasConstant>
+        <hasDegree rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasDegree>
+        <hasExpression>4x + 2 = 18</hasExpression>
+        <hasSolution rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</hasSolution>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation6 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation6">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#QuadraticEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step6_Generic"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step1_Generic"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step2_Generic"/>
+        <hasHintStep3 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step3_Generic"/>
+        <hasHintStep4 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step4_Generic"/>
+        <hasHintStep5 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step5_Generic"/>
+        <hasACProduct rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</hasACProduct>
+        <hasACoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasACoefficient>
+        <hasBCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-5</hasBCoefficient>
+        <hasCCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</hasCCoefficient>
+        <hasDegree rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasDegree>
+        <hasDiscriminant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasDiscriminant>
+        <hasExpression>x² - 5x + 6 = 0</hasExpression>
+        <hasSolution1 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasSolution1>
+        <hasSolution2 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</hasSolution2>
+        <hasStep4Expression>x² - 2x - 3x + 6 = 0</hasStep4Expression>
+        <hasStep5Expression>x(x - 2) - 3(x - 2) = 0</hasStep5Expression>
+        <hasStep6Expression>(x - 2)(x - 3) = 0</hasStep6Expression>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation7 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation7">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#QuadraticEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step6_Generic"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step1_Generic"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step2_Generic"/>
+        <hasHintStep3 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step3_Generic"/>
+        <hasHintStep4 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step4_Generic"/>
+        <hasHintStep5 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step5_Generic"/>
+        <hasACProduct rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-4</hasACProduct>
+        <hasACoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasACoefficient>
+        <hasBCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</hasBCoefficient>
+        <hasCCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-4</hasCCoefficient>
+        <hasDiscriminant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16</hasDiscriminant>
+        <hasExpression>x² + 0x - 4 = 0</hasExpression>
+        <hasSolution1 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-2</hasSolution1>
+        <hasSolution2 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasSolution2>
+        <hasStep4Expression>x² + 2x - 2x - 4 = 0</hasStep4Expression>
+        <hasStep5Expression>x(x + 2) - 2(x + 2) = 0</hasStep5Expression>
+        <hasStep6Expression>(x + 2)(x - 2) = 0</hasStep6Expression>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation8 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation8">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#QuadraticEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step6_Generic"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step1_Generic"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step2_Generic"/>
+        <hasHintStep3 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step3_Generic"/>
+        <hasHintStep4 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step4_Generic"/>
+        <hasHintStep5 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step5_Generic"/>
+        <hasACProduct rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</hasACProduct>
+        <hasACoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasACoefficient>
+        <hasBCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</hasBCoefficient>
+        <hasCCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</hasCCoefficient>
+        <hasDiscriminant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</hasDiscriminant>
+        <hasExpression>x² + 4x + 4 = 0</hasExpression>
+        <hasSolution1 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-2</hasSolution1>
+        <hasSolution2 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-2</hasSolution2>
+        <hasStep4Expression>x² + 2x + 2x + 4 = 0</hasStep4Expression>
+        <hasStep5Expression>x(x + 2) + 2(x + 2) = 0</hasStep5Expression>
+        <hasStep6Expression>(x + 2)(x + 2) = 0</hasStep6Expression>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Equation9 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Equation9">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#QuadraticEquation"/>
+        <hasHintSolution rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step6_Generic"/>
+        <hasHintStep1 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step1_Generic"/>
+        <hasHintStep2 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step2_Generic"/>
+        <hasHintStep3 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step3_Generic"/>
+        <hasHintStep4 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step4_Generic"/>
+        <hasHintStep5 rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint_Step5_Generic"/>
+        <hasACProduct rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</hasACProduct>
+        <hasACoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</hasACoefficient>
+        <hasBCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-8</hasBCoefficient>
+        <hasCCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</hasCCoefficient>
+        <hasDiscriminant rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16</hasDiscriminant>
+        <hasExpression>2x² - 8x + 6 = 0</hasExpression>
+        <hasSolution1 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</hasSolution1>
+        <hasSolution2 rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</hasSolution2>
+        <hasStep4Expression>2x² - 2x - 6x + 6 = 0</hasStep4Expression>
+        <hasStep5Expression>2x(x - 1) - 6(x - 1) = 0</hasStep5Expression>
+        <hasStep6Expression>2(x - 1)(x - 3) = 0</hasStep6Expression>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#HighPerformer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#HighPerformer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#PerformanceLevel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#HintSolution -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#HintSolution">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <hasHintHigh>Apply inverse operations to isolate x.</hasHintHigh>
+        <hasHintLow>Now that you know the constant and coefficient, let&apos;s solve for x:
+
+Step 1: Move the constant to the other side by doing the opposite operation.
+        If it was added (+), subtract it. If subtracted (-), add it.
+        
+Step 2: Then divide BOTH sides by the coefficient.
+
+Step 3: The answer is your value of x.
+
+Example: 2x + 3 = 7
+- Step 1: Subtract 3 from both sides: 2x = 4
+- Step 2: Divide both sides by 2: x = 2
+
+Remember: Whatever you do to one side, do to the other side!</hasHintLow>
+        <hasHintModerate>Subtract the constant from both sides, then divide both sides by the 
+coefficient to isolate x. Keep the equation balanced!</hasHintModerate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#HintStep1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#HintStep1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <hasHintHigh>Identify the constant term (number without x).</hasHintHigh>
+        <hasHintLow>In the equation 2x + 3 = 7, the constant is the number that is added 
+or subtracted from x. Look for the number that stands ALONE without 
+any x attached to it. In this case: 3. The constant is 3 because it&apos;s 
+not multiplied by x - it just sits there by itself. Think of it as 
+&quot;the lonely number without a friend (variable).&quot;</hasHintLow>
+        <hasHintModerate>The constant is the number added or subtracted from x in the equation. 
+In 2x + 3 = 7, the constant is 3.</hasHintModerate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#HintStep2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#HintStep2">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <hasHintHigh>Identify the coefficient of x.</hasHintHigh>
+        <hasHintLow>The coefficient is the number that is MULTIPLIED by the variable x. 
+Look for the number that is directly attached to x (no space between). 
+In 2x + 3, the number 2 is multiplied by x, so 2 is the coefficient. 
+Think of it as &quot;How many x&apos;s do we have?&quot; or &quot;The partner of x.&quot; 
+If you see just &apos;x&apos; with no number, the coefficient is 1.</hasHintLow>
+        <hasHintModerate>The coefficient is the number multiplied by x. In 2x + 3, the 
+coefficient is 2. If there&apos;s just &apos;x&apos;, the coefficient is 1.</hasHintModerate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Hint_Step1_Generic -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Hint_Step1_Generic">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <hasHintHigh>Find a, b, c coefficients.</hasHintHigh>
+        <hasHintLow>Match your equation with the pattern: ax² + bx + c = 0
+
+Look at each term:
+- &apos;a&apos; is the coefficient of x² (the number in front of x with a square)
+- &apos;b&apos; is the coefficient of x (the number in front of x without square)
+- &apos;c&apos; is the constant (the number by itself with no x)
+
+IMPORTANT: Don&apos;t forget negative signs! They are part of the number.
+
+Example: In 2x² - 8x + 6 = 0:
+- a = 2 (in front of x²)
+- b = -8 (in front of x, note the negative sign!)
+- c = 6 (the number alone)</hasHintLow>
+        <hasHintModerate>Extract a, b, c from the quadratic form ax² + bx + c = 0. 
+Remember: a is the coefficient of x², b is the coefficient of x, 
+c is the constant. Don&apos;t forget negative signs!</hasHintModerate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Hint_Step2_Generic -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Hint_Step2_Generic">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <hasHintHigh>Calculate a × c (the AC product).</hasHintHigh>
+        <hasHintLow>Now multiply &apos;a&apos; by &apos;c&apos; to get the AC product.
+
+Steps:
+1. Take the &apos;a&apos; value (coefficient of x²)
+2. Take the &apos;c&apos; value (constant term)
+3. Multiply them together: a × c = AC product
+4. Write down this number - you&apos;ll need it next!
+
+Example: If a = 2 and c = 6
+Then AC = 2 × 6 = 12
+
+Note: If &apos;a&apos; or &apos;c&apos; is negative, the product might be negative too. 
+For example: a = 2, c = -5, then AC = 2 × (-5) = -10</hasHintLow>
+        <hasHintModerate>Multiply the coefficient a (from x²) by the constant c. 
+This gives you the AC product. Remember signs!</hasHintModerate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Hint_Step3_Generic -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Hint_Step3_Generic">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <hasHintHigh>Find factors that multiply to AC and add to b.</hasHintHigh>
+        <hasHintLow>Find two numbers that satisfy TWO conditions:
+1. They multiply to give AC (your product from step 2)
+2. They add up to give b (the coefficient of x)
+
+Steps:
+1. Write down all factor pairs of AC
+   (pairs of numbers that multiply to AC)
+2. For each pair, check if they add to b
+3. Test both positive and negative combinations
+4. When you find the pair, you&apos;re done!
+
+Example: AC = 12, b = 8
+Factor pairs of 12: (1,12), (2,6), (3,4)
+Check: 1+12=13 ✗, 2+6=8 ✓
+Answer: 2 and 6
+
+Hint: If AC is negative, one number is positive and one is negative!</hasHintLow>
+        <hasHintModerate>List all pairs of numbers that multiply to AC. Then check which pair 
+adds up to b. Consider positive and negative combinations.</hasHintModerate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Hint_Step4_Generic -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Hint_Step4_Generic">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <hasHintHigh>Decompose bx into two terms using your factors.</hasHintHigh>
+        <hasHintLow>Now you&apos;ll split the middle term (the bx term) into two parts.
+
+Steps:
+1. Take the two numbers you found (let&apos;s call them m and n)
+2. Replace bx with: mx + nx
+3. Rewrite the entire equation with four terms
+
+Example: If 2x² - 8x + 6 = 0 and your numbers are -2 and -6:
+- Original: 2x² - 8x + 6 = 0
+- Rewritten: 2x² - 2x - 6x + 6 = 0
+
+Notice: -2x and -6x add up to -8x (our original middle term) ✓
+
+The key is: bx becomes two terms, and all four terms are now visible!</hasHintLow>
+        <hasHintModerate>Split the middle term (bx) using your two numbers. Write the equation 
+with four terms, then group them in pairs: (first two terms) and 
+(last two terms).</hasHintModerate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Hint_Step5_Generic -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Hint_Step5_Generic">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <hasHintHigh>Factor each group and identify the common binomial.</hasHintHigh>
+        <hasHintLow>Now you&apos;ll factor by grouping - pull out what&apos;s common from each pair.
+
+Steps:
+1. Look at the first two terms: ? and ?
+2. What do they have in common? (a common factor)
+3. Pull it out: write it in front with parentheses
+4. Look at the last two terms: ? and ?
+5. What do they have in common?
+6. Pull it out: write it in front with parentheses
+7. You should see the SAME thing in both parentheses!
+
+Example: 2x² - 2x - 6x + 6 = 0
+- First pair (2x² - 2x): Common factor is 2x
+  → 2x(x - 1)
+- Second pair (-6x + 6): Common factor is -6
+  → -6(x - 1)
+- Result: 2x(x - 1) - 6(x - 1) = 0
+
+See? Both have (x - 1) in parentheses! That&apos;s what we want!</hasHintLow>
+        <hasHintModerate>Factor out the common term from each group. You should see a common 
+binomial factor appearing in both groups.</hasHintModerate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#Hint_Step6_Generic -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#Hint_Step6_Generic">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#Hint"/>
+        <hasHintHigh>Solve each factor = 0 for x.</hasHintHigh>
+        <hasHintLow>You&apos;re almost there! Now you&apos;ll find the final answers.
+
+After factoring, you should have: (common binomial) × (another binomial) = 0
+
+Steps:
+1. Set the FIRST factor equal to zero: _____ = 0
+2. Solve for x (simple algebra)
+3. Set the SECOND factor equal to zero: _____ = 0
+4. Solve for x again
+
+Example: (x - 2)(x - 3) = 0
+- First: x - 2 = 0  →  x = 2
+- Second: x - 3 = 0  →  x = 3
+
+These are your TWO solutions: x = 2 and x = 3
+
+Check: When you multiply (x - 2)(x - 3), you get x² - 5x + 6 ✓</hasHintLow>
+        <hasHintModerate>Set each factor equal to zero and solve for x separately. These are 
+your two solutions (unless they&apos;re the same number).</hasHintModerate>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#LowPerformer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#LowPerformer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#PerformanceLevel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/algebra_tutor#ModeratePerformer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/algebra_tutor#ModeratePerformer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/algebra_tutor#PerformanceLevel"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

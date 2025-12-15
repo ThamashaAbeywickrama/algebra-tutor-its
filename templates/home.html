@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra Tutor - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .progress-btn {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .linear-section {
+            border-left: 5px solid #4facfe;
+        }
+
+        .quadratic-section {
+            border-left: 5px solid #f093fb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome, {{ student_name }}! 👋</h1>
+            <p style="color: #666; font-size: 1.1em;">Choose your algebra adventure</p>
+        </div>
+
+        {% if performance_level %}
+        <div class="section" style="text-align: center;">
+            <p style="color: #667eea; font-size: 1.1em;">
+                <strong>🎯 Your Level:</strong> <span style="text-transform: capitalize;">{{ performance_level }}</span>
+                Performer
+            </p>
+            <p style="color: #999; font-size: 0.95em; margin-top: 5px;">Hints will be personalized based on your level
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- Linear Equations Section -->
+        <div class="section linear-section">
+            <h2>📐 Linear Equations</h2>
+            <div class="description">
+                <p><strong>What are Linear Equations?</strong></p>
+                <p>Linear equations are algebraic equations where the highest power of the variable is 1. They form
+                    straight lines when graphed and are the foundation of algebra.</p>
+                <br>
+                <p><strong>General Form:</strong> ax + b = c</p>
+                <p>Where 'a' is the coefficient, 'b' is the constant, and 'x' is the variable we solve for.</p>
+                <br>
+                <p><strong>Example:</strong> 2x + 3 = 7 (Solution: x = 2)</p>
+                <br>
+                <p>Linear equations are used everywhere - from calculating distances and speeds to budgeting and
+                    financial planning!</p>
+            </div>
+            <button onclick="window.location.href='/linear/dashboard'">🚀 Try Linear Equations</button>
+        </div>
+
+        <!-- Quadratic Equations Section -->
+        <div class="section quadratic-section">
+            <h2>📊 Quadratic Equations</h2>
+            <div class="description">
+                <p><strong>What are Quadratic Equations?</strong></p>
+                <p>Quadratic equations are polynomial equations where the highest power of the variable is 2. They form
+                    parabolas (U-shaped curves) when graphed.</p>
+                <br>
+                <p><strong>General Form:</strong> ax² + bx + c = 0</p>
+                <p>Where 'a', 'b', and 'c' are coefficients, and we solve for 'x' using the quadratic formula or
+                    factoring.</p>
+                <br>
+                <p><strong>Example:</strong> x² - 5x + 6 = 0 (Solutions: x = 2 and x = 3)</p>
+                <br>
+                <p>Quadratic equations model real-world phenomena like projectile motion, area problems, and
+                    optimization scenarios!</p>
+            </div>
+            <button onclick="window.location.href='/quadratic/dashboard'">🎯 Try Quadratic Equations</button>
+        </div>
+
+        <!-- Progress Button -->
+        <div class="button-group">
+            <button class="progress-btn" onclick="window.location.href='/progress/'">📊 View Your Progress</button>
+        </div>
+    </div>
+</body>
+
+</html>

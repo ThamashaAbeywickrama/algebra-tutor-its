@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Equations Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .equation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .equation-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .equation-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .equation-card.locked {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .equation-card.completed {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .equation-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .equation-card p {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .equation-display {
+            font-size: 2em;
+            text-align: center;
+            color: #667eea;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .step-container {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+            margin: 15px 0;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .progress-text {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            color: #1976d2;
+            font-weight: 500;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 500;
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .message.success {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .message.error {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .message.hint {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            margin: 30px 0;
+            max-height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page active">
+            <h1>📐 Linear Equations</h1>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">Select an equation to solve</p>
+
+            <div class="equation-grid" id="equationGrid"></div>
+
+            <div class="button-group">
+                <button onclick="window.location.href='/home'">← Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Equation Solver Page -->
+        <div id="solverPage" class="page">
+            <h1>Solve the Equation</h1>
+
+            <div class="equation-display" id="equationExpression"></div>
+
+            <div class="step-container">
+                <h3 id="stepInstruction">Step 1: What is the constant term?</h3>
+                <div class="progress-text" id="progressText" style="display: none;"></div>
+                <input type="number" id="answerInput" placeholder="Enter your answer" />
+                <div id="messageBox"></div>
+            </div>
+
+            <div class="button-group">
+                <button onclick="submitAnswer()">✓ Submit</button>
+                <button onclick="getHint()">💡 Hint</button>
+                <button onclick="showGraph()">📈 Show Graph</button>
+                <button onclick="backToDashboard()">← Back</button>
+            </div>
+
+            <div class="chart-container" id="graphContainer" style="display: none;">
+                <canvas id="equationChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentEquationId = null;
+        let currentStep = 0;
+        let equationData = null;
+        let chart = null;
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        async function loadEquations() {
+            const response = await fetch('/linear/equations');
+            const data = await response.json();
+
+            const grid = document.getElementById('equationGrid');
+            grid.innerHTML = '';
+
+            data.equations.forEach(eq => {
+                const card = document.createElement('div');
+                card.className = `equation-card ${eq.status}`;
+                card.innerHTML = `
+                    <h3>${eq.expression}</h3>
+                    <p>Attempts: ${eq.attempts}</p>
+                    ${eq.time > 0 ? `<p>Time: ${eq.time}s</p>` : ''}
+                `;
+
+                if (eq.status !== 'locked') {
+                    card.onclick = () => openEquation(eq.id);
+                }
+
+                grid.appendChild(card);
+            });
+        }
+
+        async function openEquation(id) {
+            currentEquationId = id;
+            const response = await fetch(`/linear/equation/${id}`);
+            equationData = await response.json();
+
+            document.getElementById('equationExpression').textContent = equationData.expression;
+            document.getElementById('stepInstruction').textContent = 'Step 1: What is the constant term?';
+            document.getElementById('progressText').style.display = 'none';
+            document.getElementById('answerInput').value = '';
+            document.getElementById('messageBox').innerHTML = '';
+            document.getElementById('graphContainer').style.display = 'none';
+
+            currentStep = 0;
+            showPage('solverPage');
+        }
+
+        function backToDashboard() {
+            showPage('dashboardPage');
+            loadEquations();
+        }
+
+        async function submitAnswer() {
+            const answer = document.getElementById('answerInput').value;
+            if (!answer) {
+                showMessage('Please enter an answer!', 'error');
+                return;
+            }
+
+            const response = await fetch('/linear/check_answer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answer })
+            });
+
+            const data = await response.json();
+
+            if (data.correct) {
+                showMessage(data.message, 'success');
+
+                if (data.completed) {
+                    setTimeout(() => backToDashboard(), 2000);
+                } else {
+                    currentStep = data.next_step;
+                    updateStep(data.next_step, data.progress_text);
+                    document.getElementById('answerInput').value = '';
+                }
+            } else {
+                showMessage(data.message, 'error');
+                if (data.hint) {
+                    setTimeout(() => showMessage(`💡 ${data.hint}`, 'hint'), 1500);
+                }
+            }
+        }
+
+        function updateStep(step, progressText) {
+            const instructions = [
+                'Step 1: What is the constant term?',
+                'Step 2: What do you divide by?',
+                'Step 3: What is the value of x?'
+            ];
+
+            document.getElementById('stepInstruction').textContent = instructions[step];
+
+            if (progressText) {
+                const progressEl = document.getElementById('progressText');
+                progressEl.textContent = progressText;
+                progressEl.style.display = 'block';
+            }
+        }
+
+        async function getHint() {
+            const response = await fetch('/linear/hint');
+            const data = await response.json();
+            // Updated to show source of hint (Personalized or Default)
+            showMessage(`🎯 ${data.hint}`, 'hint');
+        }
+
+        async function showGraph() {
+            const response = await fetch(`/linear/graph_data/${currentEquationId}`);
+            const data = await response.json();
+
+            const container = document.getElementById('graphContainer');
+            container.style.display = 'block';
+
+            const ctx = document.getElementById('equationChart').getContext('2d');
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.x_values,
+                    datasets: [{
+                        label: 'y = ' + equationData.expression.split('=')[0].trim(),
+                        data: data.y_values,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.1,
+                        pointRadius: 3
+                    }, {
+                        label: 'Solution',
+                        data: data.x_values.map(x => x === data.solution ? 0 : null),
+                        borderColor: '#f5576c',
+                        backgroundColor: '#f5576c',
+                        pointRadius: 8,
+                        pointStyle: 'star',
+                        showLine: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: true }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'x' } },
+                        y: { title: { display: true, text: 'y' } }
+                    }
+                }
+            });
+        }
+
+        function showMessage(message, type) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.innerHTML = `<div class="message ${type}">${message}</div>`;
+        }
+
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && document.getElementById('solverPage').classList.contains('active')) {
+                submitAnswer();
+            }
+        });
+
+        loadEquations();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Quiz - Algebra Tutor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .intro-text {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.05em;
+        }
+
+        .intro-text ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .intro-text li {
+            margin-bottom: 8px;
+        }
+
+        .question-container {
+            margin: 30px 0;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f9f9f9;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .option label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 10px 5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .results {
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 4em;
+            color: #667eea;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: white;
+        }
+
+        .level-high {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .level-moderate {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .level-low {
+            background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+        }
+
+        .result-message {
+            font-size: 1.1em;
+            color: #666;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Intro Page -->
+        <div id="introPage" class="page active">
+            <h1>📋 Diagnostic Quiz</h1>
+            <div class="intro-text">
+                <p>Hello, {{ student_name }}! 👋</p>
+                <br>
+                <p>Before you start learning, we need to understand your current knowledge level. This short quiz will
+                    help us customize the difficulty and hints for your learning journey.</p>
+                <br>
+                <p><strong>What to expect:</strong></p>
+                <ul>
+                    <li>7 quick questions about linear and quadratic equations</li>
+                    <li>Topics range from basic to intermediate</li>
+                    <li>No time limit - take your time!</li>
+                    <li>Your results will personalize your experience</li>
+                </ul>
+                <br>
+                <p><em>✨ Based on your performance, we'll adjust hint levels to match your skills!</em></p>
+            </div>
+            <div class="button-group">
+                <button onclick="startQuiz()">Start Quiz →</button>
+            </div>
+        </div>
+
+        <!-- Quiz Page -->
+        <div id="quizPage" class="page">
+            <h1>Question <span id="currentQuestion">1</span> of 7</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div id="quizContainer"></div>
+            <div class="button-group">
+                <button id="prevBtn" onclick="previousQuestion()" style="display:none;">← Previous</button>
+                <button id="nextBtn" onclick="nextQuestion()">Next →</button>
+                <button id="submitBtn" onclick="submitQuiz()" style="display:none;">Submit Quiz</button>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div id="resultsPage" class="page">
+            <h1>Quiz Complete! 🎉</h1>
+            <div class="results">
+                <p style="font-size: 1.1em; color: #666; margin-bottom: 10px;">You got</p>
+                <div class="score-display" id="scoreDisplay"></div>
+                <p style="color: #666; margin-bottom: 20px;" id="scoreText"></p>
+
+                <div id="levelInfo"></div>
+
+                <div class="result-message" id="resultMessage"></div>
+
+                <button onclick="goToHome()" style="margin-top: 30px; font-size: 1.2em;">Let's Start Learning!
+                    →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const QUESTIONS = [];
+        let currentQ = 0;
+        let answers = {};
+
+        async function loadQuestions() {
+            const response = await fetch('/quiz/get_questions');
+            const data = await response.json();
+            QUESTIONS.push(...data.questions);
+        }
+
+        function startQuiz() {
+            document.getElementById('introPage').classList.remove('active');
+            document.getElementById('quizPage').classList.add('active');
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const q = QUESTIONS[currentQ];
+            const progress = ((currentQ + 1) / QUESTIONS.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = currentQ + 1;
+
+            let optionsHTML = '';
+            q.options.forEach((opt, idx) => {
+                const checked = answers[q.id] === idx ? 'checked' : '';
+                optionsHTML += `
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q${q.id}" value="${idx}" ${checked} 
+                                   onchange="answers[${q.id}] = ${idx}">
+                            ${opt}
+                        </label>
+                    </div>
+                `;
+            });
+
+            document.getElementById('quizContainer').innerHTML = `
+                <div class="question-container">
+                    <div class="question-number">Question ${currentQ + 1}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">${optionsHTML}</div>
+                </div>
+            `;
+
+            // Update buttons
+            document.getElementById('prevBtn').style.display = currentQ > 0 ? 'inline-block' : 'none';
+            document.getElementById('nextBtn').style.display = currentQ < QUESTIONS.length - 1 ? 'inline-block' : 'none';
+            document.getElementById('submitBtn').style.display = currentQ === QUESTIONS.length - 1 ? 'inline-block' : 'none';
+        }
+
+        function nextQuestion() {
+            if (currentQ < QUESTIONS.length - 1) {
+                currentQ++;
+                displayQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQ > 0) {
+                currentQ--;
+                displayQuestion();
+            }
+        }
+
+        async function submitQuiz() {
+            const response = await fetch('/quiz/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answers })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                showResults(data);
+            }
+        }
+
+        function showResults(data) {
+            const levelClass = `level-${data.level}`;
+            const levelText = data.level.charAt(0).toUpperCase() + data.level.slice(1);
+
+            let resultMsg = '';
+            if (data.level === 'high') {
+                resultMsg = `🌟 Excellent work! You're performing at an advanced level. You'll receive concise hints to challenge yourself further.`;
+            } else if (data.level === 'moderate') {
+                resultMsg = `👍 Good job! You're performing at an intermediate level. You'll receive balanced hints to guide your learning.`;
+            } else {
+                resultMsg = `💪 Great effort! You're starting your algebra journey. You'll receive detailed, step-by-step hints to build your foundation.`;
+            }
+
+            document.getElementById('scoreDisplay').textContent = `${data.correct}/${data.total}`;
+            document.getElementById('scoreText').textContent = `(${Math.round(data.score)}%)`;
+            document.getElementById('levelInfo').innerHTML = `
+                <div class="level-badge ${levelClass}">
+                    ${levelText} Performer
+                </div>
+            `;
+            document.getElementById('resultMessage').textContent = resultMsg;
+
+            document.getElementById('quizPage').classList.remove('active');
+            document.getElementById('resultsPage').classList.add('active');
+        }
+
+        function goToHome() {
+            window.location.href = '/home';
+        }
+
+        // Load questions on page load
+        loadQuestions();
+    </script>
+</body>
+
+</html>

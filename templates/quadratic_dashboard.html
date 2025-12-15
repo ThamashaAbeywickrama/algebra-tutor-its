@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Equations - AC Method</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .equation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .equation-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .equation-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .equation-card.locked {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .equation-card.completed {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .equation-display {
+            font-size: 2em;
+            text-align: center;
+            color: #667eea;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .step-container {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .step-instruction {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .progress-label {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            color: #1976d2;
+            font-weight: 500;
+            font-size: 1.05em;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+            margin: 5px 0;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .three-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .two-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 500;
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .message.success {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .message.error {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .message.hint {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            margin: 30px 0;
+            max-height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page active">
+            <h1>📊 Quadratic Equations</h1>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">Select an equation to solve</p>
+
+            <div class="equation-grid" id="equationGrid"></div>
+
+            <div class="button-group">
+                <button onclick="window.location.href='/home'">← Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Equation Solver Page -->
+        <div id="solverPage" class="page">
+            <h1>Solve the Equation</h1>
+
+            <div class="equation-display" id="equationExpression"></div>
+
+            <div class="step-container">
+                <h3 id="stepInstruction">Loading...</h3>
+
+                <div id="progressLabel" class="progress-label" style="display: none;"></div>
+
+                <div id="inputArea"></div>
+
+                <div id="messageBox"></div>
+            </div>
+
+            <div class="button-group">
+                <button onclick="submitAnswer()">✓ Submit</button>
+                <button onclick="getHint()">💡 Hint</button>
+                <button onclick="showGraph()">📈 Show Graph</button>
+                <button onclick="backToDashboard()">← Back</button>
+            </div>
+
+            <div class="chart-container" id="graphContainer" style="display: none;">
+                <canvas id="equationChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentEquationId = null;
+        let currentStepData = null;
+        let equationData = null;
+        let chart = null;
+        let sessionData = {}; // Store a, b, c, ac, factors
+        let stepExpressions = {}; // Store step expressions from ontology
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        async function loadEquations() {
+            const response = await fetch('/quadratic/equations');
+            const data = await response.json();
+
+            const grid = document.getElementById('equationGrid');
+            grid.innerHTML = '';
+
+            data.equations.forEach(eq => {
+                const card = document.createElement('div');
+                card.className = `equation-card ${eq.status}`;
+                card.innerHTML = `
+                    <h3>${eq.expression}</h3>
+                    <p>Attempts: ${eq.attempts}</p>
+                    ${eq.time > 0 ? `<p>Time: ${eq.time}s</p>` : ''}
+                `;
+
+                if (eq.status !== 'locked') {
+                    card.onclick = () => openEquation(eq.id);
+                }
+
+                grid.appendChild(card);
+            });
+        }
+
+        async function openEquation(id) {
+            currentEquationId = id;
+            sessionData = {}; // Reset
+
+            const response = await fetch(`/quadratic/equation/${id}`);
+            equationData = await response.json();
+
+            // Store step expressions from ontology
+            stepExpressions = {
+                step4: equationData.step4_expression || '',
+                step5: equationData.step5_expression || '',
+                step6: equationData.step6_expression || ''
+            };
+
+            document.getElementById('equationExpression').textContent = equationData.expression;
+            currentStepData = equationData.current_step;
+
+            updateStepDisplay();
+            document.getElementById('messageBox').innerHTML = '';
+            document.getElementById('graphContainer').style.display = 'none';
+
+            showPage('solverPage');
+        }
+
+        function updateStepDisplay() {
+            const stepInstruction = document.getElementById('stepInstruction');
+            const progressLabel = document.getElementById('progressLabel');
+            const inputArea = document.getElementById('inputArea');
+
+            stepInstruction.textContent = currentStepData.instruction;
+            progressLabel.style.display = 'none';
+            inputArea.innerHTML = '';
+
+            // Show progress labels based on step
+            if (currentStepData.id === 3 && sessionData.ac !== undefined) {
+                progressLabel.innerHTML = `After calculating: ac = ${sessionData.ac}, b = ${sessionData.b}`;
+                progressLabel.style.display = 'block';
+            } else if (currentStepData.id === 4 && stepExpressions.step4) {
+                // Use expression from ontology for step 4
+                progressLabel.innerHTML = `Split middle term: ${stepExpressions.step4}`;
+                progressLabel.style.display = 'block';
+            } else if (currentStepData.id === 5 && stepExpressions.step5) {
+                // Use expression from ontology for step 5
+                progressLabel.innerHTML = `Factor by grouping: ${stepExpressions.step5}`;
+                progressLabel.style.display = 'block';
+            } else if (currentStepData.id === 6 && stepExpressions.step6) {
+                // Use expression from ontology for step 6
+                progressLabel.innerHTML = `Factored equation: ${stepExpressions.step6}`;
+                progressLabel.style.display = 'block';
+            }
+
+            // Create input fields based on step
+            if (currentStepData.input_type === 'three_numbers') {
+                inputArea.innerHTML = `
+                    <div class="three-inputs">
+                        <div class="input-group">
+                            <label>a =</label>
+                            <input type="number" id="input_a" placeholder="a">
+                        </div>
+                        <div class="input-group">
+                            <label>b =</label>
+                            <input type="number" id="input_b" placeholder="b">
+                        </div>
+                        <div class="input-group">
+                            <label>c =</label>
+                            <input type="number" id="input_c" placeholder="c">
+                        </div>
+                    </div>
+                `;
+            } else if (currentStepData.input_type === 'two_numbers') {
+                const label1 = currentStepData.id === 6 ? 'x =' : 'First number';
+                const label2 = currentStepData.id === 6 ? 'x =' : 'Second number';
+                inputArea.innerHTML = `
+                    <div class="two-inputs">
+                        <div class="input-group">
+                            <label>${label1}</label>
+                            <input type="number" id="input_num1" placeholder="${label1}" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label>${label2}</label>
+                            <input type="number" id="input_num2" placeholder="${label2}" step="0.01">
+                        </div>
+                    </div>
+                `;
+            } else if (currentStepData.input_type === 'number') {
+                inputArea.innerHTML = `
+                    <input type="number" id="input_answer" placeholder="Enter your answer">
+                `;
+            } else if (currentStepData.input_type === 'text') {
+                inputArea.innerHTML = `
+                    <input type="text" id="input_answer" placeholder="Enter your work">
+                `;
+            }
+        }
+
+        function backToDashboard() {
+            showPage('dashboardPage');
+            loadEquations();
+        }
+
+        async function submitAnswer() {
+            let payload = {};
+
+            if (currentStepData.input_type === 'three_numbers') {
+                payload = {
+                    a: document.getElementById('input_a').value,
+                    b: document.getElementById('input_b').value,
+                    c: document.getElementById('input_c').value
+                };
+            } else if (currentStepData.input_type === 'two_numbers') {
+                if (currentStepData.id === 6) {
+                    payload = {
+                        sol1: document.getElementById('input_num1').value,
+                        sol2: document.getElementById('input_num2').value
+                    };
+                } else {
+                    payload = {
+                        num1: document.getElementById('input_num1').value,
+                        num2: document.getElementById('input_num2').value
+                    };
+                }
+            } else {
+                payload = { answer: document.getElementById('input_answer').value };
+            }
+
+            const response = await fetch('/quadratic/check_answer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (data.correct) {
+                showMessage(data.message, 'success');
+
+                // Store session data for labels
+                if (currentStepData.id === 1) {
+                    sessionData.a = parseInt(payload.a);
+                    sessionData.b = parseInt(payload.b);
+                    sessionData.c = parseInt(payload.c);
+                } else if (currentStepData.id === 2) {
+                    sessionData.ac = parseInt(payload.answer);
+                } else if (currentStepData.id === 3) {
+                    sessionData.factor1 = parseInt(payload.num1);
+                    sessionData.factor2 = parseInt(payload.num2);
+                }
+
+                if (data.completed) {
+                    setTimeout(() => backToDashboard(), 2500);
+                } else {
+                    currentStepData = data.next_step;
+                    setTimeout(() => {
+                        updateStepDisplay();
+                        document.getElementById('messageBox').innerHTML = '';
+                    }, 1500);
+                }
+            } else {
+                showMessage(data.message, 'error');
+                if (data.hint) {
+                    setTimeout(() => showMessage(`💡 ${data.hint}`, 'hint'), 1500);
+                }
+            }
+        }
+
+        async function getHint() {
+            const response = await fetch('/quadratic/hint');
+            const data = await response.json();
+            showMessage(`🎯 ${data.hint}`, 'hint');
+        }
+
+        async function showGraph() {
+            const response = await fetch(`/quadratic/graph_data/${currentEquationId}`);
+            const data = await response.json();
+
+            const container = document.getElementById('graphContainer');
+            container.style.display = 'block';
+
+            const ctx = document.getElementById('equationChart').getContext('2d');
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            const datasets = [{
+                label: 'Quadratic Function',
+                data: data.y_values,
+                borderColor: '#f093fb',
+                backgroundColor: 'rgba(240, 147, 251, 0.1)',
+                tension: 0.4,
+                pointRadius: 2
+            }];
+
+            if (data.solution1 !== null) {
+                datasets.push({
+                    label: `x = ${data.solution1}`,
+                    data: data.x_values.map(x => Math.abs(x - data.solution1) < 0.1 ? 0 : null),
+                    borderColor: '#f5576c',
+                    backgroundColor: '#f5576c',
+                    pointRadius: 8,
+                    pointStyle: 'star',
+                    showLine: false
+                });
+            }
+
+            if (data.solution2 !== null && data.solution2 !== data.solution1) {
+                datasets.push({
+                    label: `x = ${data.solution2}`,
+                    data: data.x_values.map(x => Math.abs(x - data.solution2) < 0.1 ? 0 : null),
+                    borderColor: '#4facfe',
+                    backgroundColor: '#4facfe',
+                    pointRadius: 8,
+                    pointStyle: 'star',
+                    showLine: false
+                });
+            }
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.x_values,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: true }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: 'x' } },
+                        y: { title: { display: true, text: 'y' } }
+                    }
+                }
+            });
+        }
+
+        function showMessage(message, type) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.innerHTML = `<div class="message ${type}">${message}</div>`;
+        }
+
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && document.getElementById('solverPage').classList.contains('active')) {
+                submitAnswer();
+            }
+        });
+
+        loadEquations();
+    </script>
+</body>
+
+</html>
